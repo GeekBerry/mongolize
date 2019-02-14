@@ -1,1 +1,1 @@
-module.export = require('./lib/mongolize');
+module.exports = require('./lib/mongolize');
