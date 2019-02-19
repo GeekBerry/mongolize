@@ -1,6 +1,6 @@
 {
   "name": "mongolize",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A mongo ORM base on mongoose, changed some method to look like sequelize",
   "author": "geekberry@qq.com",
   "license": "MIT",
