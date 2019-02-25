@@ -3,6 +3,10 @@
 A mongo ORM base on mongoose, changed some method to look like sequelize.  
 一个基于 `mongoose` 制作的 mongo ORM, 更改了一些方法使其用起来更像 `sequelize`
 
+# Warning
+版本并不稳定
+`The version is not very stable`
+
 # Installation
 `npm install mongoose`
 
