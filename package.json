@@ -1,12 +1,16 @@
 {
   "name": "mongolize",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A mongo ORM base on mongoose, changed some method to look like sequelize",
   "author": "geekberry@qq.com",
   "license": "MIT",
+  "homepage": "https://github.com/GeekBerry/mongolize#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GeekBerry/mongolize.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GeekBerry/mongolize/issues"
   },
   "keywords": [
     "orm",
@@ -14,17 +18,13 @@
     "mongoose",
     "sequelize"
   ],
-  "homepage": "https://github.com/GeekBerry/mongolize#readme",
-  "bugs": {
-    "url": "https://github.com/GeekBerry/mongolize/issues"
-  },
   "main": "index.js",
-  "dependencies": {
-    "mongoose": "^5.4.12"
-  },
   "files": [
     "readme.md",
     "lib",
     "index.js"
-  ]
+  ],
+  "dependencies": {
+    "mongoose": "^5.4.12"
+  }
 }
