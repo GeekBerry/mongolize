@@ -27,6 +27,10 @@ const UserModel = DB.define(
 );
 
 class User extends UserModel {
+  static findAllAdults() {
+    return this.findAll({ age: { $gte: 18 } });
+  }
+
   get nameAndAge() {
     return `${this.name}&${this.age}`;
   }
@@ -35,7 +39,7 @@ class User extends UserModel {
 // ============================================================================
 let ret;
 
-async function createTest() {
+async function testCreate() {
   await User.truncate();
 
   const user = await User.create({ name: 'Tom', age: 18 });
@@ -56,9 +60,14 @@ async function testFind() {
   const userJerry = await User.create({ name: 'Jerry', age: 17 });
 
   // find by scope
-  const users = await User.scope('adult').find();
-  assert(users.length === 1);
-  assert(users[0].name === userTom.name);
+  ret = await User.scope('adult').find();
+  assert(ret.length === 1);
+  assert(ret[0].name === userTom.name);
+
+  // find by DAO
+  ret = await User.findAllAdults();
+  assert(ret.length === 1);
+  assert(ret[0].name === userTom.name);
 
   // findById: if id not exist, return null
   ret = await User.findById('888888888888888888888888');
@@ -168,7 +177,7 @@ async function testDelete() {
 
 // ============================================================================
 async function test() {
-  await createTest();
+  await testCreate();
   await testFind();
   await testSecureUndefinedValue();
   await testSyncAndUpdate();

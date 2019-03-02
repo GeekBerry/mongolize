@@ -31,7 +31,7 @@ const UserModel = DB.define(
       createdAt: 'created_at',
       updatedAt: 'updated_at',
     },
-    scopes: { // deprecated
+    scopes: {
       adult: { age: { $gte: 18 } },
     },
   },
@@ -39,10 +39,10 @@ const UserModel = DB.define(
 
 class User extends UserModel {
   static findAllAdults() {
-    return this.findAll({age:{$gte:18}});
+    return this.findAll({ age: { $gte: 18 } });
   }
-  
-  get nameAndAge() { // virtual attribute
+
+  get nameAndAge() {
     return `${this.name}&${this.age}`;
   }
 }
@@ -52,7 +52,7 @@ async function main() {
 
   const user = await User.create({ name: 'Tom', age: 18 });
   await user.update({ age: 20 }); // in practice, updateOne by {_id: user.id}
-  await user.sync([name]); // sync fields from DB
+  await user.sync(['name']); // sync fields from DB
   
   // const users = await User.scope('adult').find(); // deprecated
   const users = await User.findAllAdults(); // recommended
