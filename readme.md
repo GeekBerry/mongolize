@@ -3,19 +3,18 @@
 A mongo ORM base on mongoose, changed some method to look like sequelize.  
 一个基于 `mongoose` 制作的 mongo ORM, 更改了一些方法使其用起来更像 `sequelize`
 
-# Warning
-版本并不稳定
-`The version is not very stable`
-
 # Installation
-`npm install mongoose`
+`npm install mongolize`
 
 # Usage
 
 ```javascript
-const mongolize = new Mongolize({ database: 'test' });
+// create
+const Mongolize = require('mongolize');
 
-const User = mongolize.define(
+const DB = new Mongolize({ database: 'test' });
+
+const UserModel = DB.define(
   'user',
   {
     name: String,
@@ -26,28 +25,41 @@ const User = mongolize.define(
       default: 0,
       required: true,
     },
-    lessons: [Lesson],
   },
   {
     timestamps: {
       createdAt: 'created_at',
       updatedAt: 'updated_at',
     },
-    scopes: {
+    scopes: { // deprecated
       adult: { age: { $gte: 18 } },
     },
   },
 );
 
+class User extends UserModel {
+  static findAllAdults() {
+    return this.findAll({age:{$gte:18}});
+  }
+  
+  get nameAndAge() { // virtual attribute
+    return `${this.name}&${this.age}`;
+  }
+}
+
 async function main() {
   await User.truncate();
 
-  const user = await User.create({ name: 'Jim', age: 16, lessons: [{ name: 'english' }] });
-  await user.update({ age: 20 });
+  const user = await User.create({ name: 'Tom', age: 18 });
+  await user.update({ age: 20 }); // in practice, updateOne by {_id: user.id}
+  await user.sync([name]); // sync fields from DB
   
-  const users = await User.scope('adult').find();
+  // const users = await User.scope('adult').find(); // deprecated
+  const users = await User.findAllAdults(); // recommended
   // ... 
 }
 
 main();
 ```
+
+[more example and test case](https://github.com/GeekBerry/mongolize/blob/master/test.js)
