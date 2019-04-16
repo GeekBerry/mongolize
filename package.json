@@ -1,6 +1,6 @@
 {
   "name": "mongolize",
-  "version": "0.0.12",
+  "version": "0.1.0",
   "description": "A mongo ORM base on mongoose, changed some method to look like sequelize",
   "author": "geekberry@qq.com",
   "license": "MIT",
@@ -29,6 +29,7 @@
     "test": "node ./test.js"
   },
   "dependencies": {
+    "assert": "^1.4.1",
     "mongoose": "^5.4.12"
   }
 }

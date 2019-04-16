@@ -3,8 +3,7 @@ const Mongolize = require('./index');
 
 const DB = new Mongolize({ database: 'test' });
 
-const UserModel = DB.define(
-  'user',
+const UserSchema = new Mongolize.Schema(
   {
     name: String,
     age: {
@@ -25,6 +24,8 @@ const UserModel = DB.define(
     },
   },
 );
+
+const UserModel = DB.model('user', UserSchema);
 
 class User extends UserModel {
   static findAllAdults() {

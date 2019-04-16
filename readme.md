@@ -14,8 +14,7 @@ const Mongolize = require('mongolize');
 
 const DB = new Mongolize({ database: 'test' });
 
-const UserModel = DB.define(
-  'user',
+const UserSchema = new Mongolize.Schema(
   {
     name: String,
     age: {
@@ -37,6 +36,8 @@ const UserModel = DB.define(
   },
 );
 
+const UserModel = DB.model('user', UserSchema);
+
 class User extends UserModel {
   static findAllAdults() {
     return this.findAll({ age: { $gte: 18 } });
@@ -56,7 +57,9 @@ async function main() {
   
   // const users = await User.scope('adult').find(); // deprecated
   const users = await User.findAllAdults(); // recommended
-  // ... 
+  // ...
+  
+  DB.close();
 }
 
 main();
